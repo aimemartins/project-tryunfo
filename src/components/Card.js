@@ -29,7 +29,7 @@ class Card extends React.Component {
           <h2 data-testid="rare-card">{cardRare}</h2>
         </div>
         <div>
-          <p data-testid="trunfo-card">{cardTrunfo === true ? cardTrunfo : null }</p>
+          { cardTrunfo && <p data-testid="trunfo-card">Super Trunfo</p> }
         </div>
       </section>
     );
