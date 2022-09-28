@@ -19,12 +19,50 @@ class App extends React.Component {
     };
   }
 
+  // função para validar o botão Salvar;
+  // Preciso chamá-la como callback de onInputChange para que ela possa ser chamada apenas quando o onInputChange acontecer
+  validSaveButton = () => {
+    const { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+    } = this.state;
+
+    const lengthValid = (
+      cardName.length
+      && cardDescription.length
+      && cardImage.length
+      && cardRare.length) > 0;
+
+    const max = 90;
+    const min = 0;
+    const sum = 210;
+
+    const attr1Valid = cardAttr1 >= min && cardAttr1 <= max;
+    const attr2Valid = cardAttr2 >= min && cardAttr2 <= max;
+    const attr3Valid = cardAttr3 >= min && cardAttr3 <= max;
+    // os atributos attr vem em forma de string, então vc precisa usar o parseInt para transformá-la em um number
+    const sumAttr = (parseInt(cardAttr1, 10)
+    + parseInt(cardAttr2, 10)
+    + parseInt(cardAttr3, 10)) <= sum;
+
+    if (lengthValid && attr1Valid && attr2Valid && attr3Valid && sumAttr) {
+      this.setState({ isSaveButtonDisabled: false });
+    } else {
+      this.setState({ isSaveButtonDisabled: true });
+    }
+  };
+
+  // Função para capturar as mudanças nos inputs
   onInputChange = (event) => {
     const { name, type, checked, value } = event.target;
     const valueOrCheck = type === 'checkbox' ? checked : value;
-    this.setState({
+    this.setState(({
       [name]: valueOrCheck,
-    });
+    }), this.validSaveButton);
   };
 
   onSaveButtonClick = () => {
