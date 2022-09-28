@@ -16,11 +16,25 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       isSaveButtonDisabled: true,
+      savedCards: [],
     };
   }
 
+  // função para resetar o click no botão;
+  returnToInitialState = () => {
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+    });
+  };
+
   // função para validar o botão Salvar;
-  // Preciso chamá-la como callback de onInputChange para que ela possa ser chamada apenas quando o onInputChange acontecer
   validSaveButton = () => {
     const { cardName,
       cardDescription,
@@ -65,8 +79,30 @@ class App extends React.Component {
     }), this.validSaveButton);
   };
 
-  onSaveButtonClick = () => {
-    console.log('ola');
+  onSaveButtonClick = (event) => {
+    event.preventDefault();
+    const { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.state;
+
+    const newObject = { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo };
+
+    this.setState((prevState) => ({
+      savedCards: [...prevState.savedCards, newObject],
+    }), this.returnToInitialState);
   };
 
   render() {
