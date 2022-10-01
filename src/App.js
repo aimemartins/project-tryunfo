@@ -159,9 +159,9 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         <div>
-          {savedCards.map((card) => (
+          {savedCards.map((card, index) => (
             <section
-              key={ card.cardName }
+              key={ index }
             >
               <Card
                 key={ card.cardName }
