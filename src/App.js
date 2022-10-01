@@ -164,7 +164,6 @@ class App extends React.Component {
               key={ index }
             >
               <Card
-                key={ card.cardName }
                 cardName={ card.cardName }
                 cardDescription={ card.cardDescription }
                 cardAttr1={ card.cardAttr1 }
